@@ -1,0 +1,32 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_sales_dates
+    FOLDER = '/1 - connectivity/2 - base views'
+    DATASOURCENAME=ds_sales
+    CATALOGNAME='${databases.tutorial.folder.1 - connectivity.folder.2 - base views.views.jdbc.bv_sales_dates.CATALOGNAME}' 
+    RELATIONNAME='dates' 
+    OUTPUTSCHEMA (
+        id = 'id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  NOT NULL SORTABLE,
+        fulldate = 'fulldate' :'java.time.LocalDate' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='91', sourcetypename='DATE')  SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'id' )
+    INDEX 'PRIMARY' OTHER UNIQUE PRIMARY ( 'id' );
+
+CREATE OR REPLACE TABLE bv_sales_dates I18N us_ast (
+        id:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        fulldate:localdate (sourcetypeid = '91', sourcetyperadix = '10', sourcetypesize = '10', description = '')
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sales_dates(
+        I18N us_ast
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD fulldate (any) OPT ANY
+        )
+        OUTPUTLIST (fulldate, id
+        )
+        WRAPPER (jdbc bv_sales_dates)
+    );
+

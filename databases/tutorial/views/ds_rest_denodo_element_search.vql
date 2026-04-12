@@ -1,0 +1,37 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JSON ds_rest_denodo_element_search
+    DATASOURCENAME=ds_rest_denodo_element_search
+    TUPLEROOT '/JSONFile/JSONArray'
+    ROUTE HTTP 'http.ApacheHttpClientConnection,120000' GET '${databases.tutorial.views.json.ds_rest_denodo_element_search.ROUTE.HTTP.URL}'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        searchval = 'SEARCHVAL' : 'java.lang.String' (OBL) (DEFAULTVALUE='exposure') EXTERN,
+        id = 'JSONFile.JSONArray.id' : 'java.lang.Integer',
+        name = 'JSONFile.JSONArray.name' : 'java.lang.String',
+        databasename = 'JSONFile.JSONArray.databaseName' : 'java.lang.String',
+        elementtype = 'JSONFile.JSONArray.elementType' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TABLE ds_rest_denodo_element_search I18N us_ast (
+        searchval:text (extern),
+        id:int,
+        name:text,
+        databasename:text,
+        elementtype:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_rest_denodo_element_search(
+        I18N us_ast
+        CONSTRAINTS (
+             ADD searchval (=) OBL ONE
+             ADD id NOS ZERO ()
+             ADD name NOS ZERO ()
+             ADD databasename NOS ZERO ()
+             ADD elementtype NOS ZERO ()
+        )
+        OUTPUTLIST (databasename, elementtype, id, name
+        )
+        WRAPPER (json ds_rest_denodo_element_search)
+    );
+

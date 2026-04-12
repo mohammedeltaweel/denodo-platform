@@ -1,0 +1,29 @@
+﻿CREATE OR REPLACE REST WEBSERVICE customer
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 1000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    DEFAULTREPRESENTATION = HTML
+    SUPPORTEDREPRESENTATIONS (HTML, XML, JSON)    AUTHENTICATION (BASIC VDP )
+
+    RESOURCES (
+        VIEW customer FIELDS (
+            customer_id : 'text', 
+            full_name : 'text' OUTPUT_ONLY, 
+            customer_type : 'text' OUTPUT_ONLY, 
+            full_address : 'text' OUTPUT_ONLY, 
+            phone : 'text' OUTPUT_ONLY, 
+            billing_due_date : 'localdate' OUTPUT_ONLY, 
+            balance : 'decimal' OUTPUT_ONLY
+        )
+    )
+    OPTIONS ( NULLVALUESASEMPTYXMLELEMENTS = false
+        ALLOW_CORS_ORIGINS (*) DISABLED
+        PROCESS_FUNCTIONS_IN_SELECT_PARAMETER = true ) 
+    OPENAPI2 ( API_VERSION = '1.0.0' ) 
+    FOLDER = '/5 - data services';
+

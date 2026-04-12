@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE VIEW iv_customer FOLDER = '/2 - integration'
+    PRIMARY KEY ( 'customer_id' ) AS SELECT iv_client_with_bills.client_type AS customer_type, iv_client_with_bills.primary_phone AS phone, iv_client_with_bills.customer_id AS customer_id, to_localdate('yyyy-MM-dd HH:mm:ss', iv_client_with_bills.due_date) AS billing_due_date, cast('decimal', iv_client_with_bills.balance) AS balance, concat(iv_client_with_bills.name, ' ', iv_client_with_bills.surname) AS full_name, concat(iv_client_with_bills.street, ', ', iv_client_with_bills.city, ', ', iv_client_with_bills.zip, ', ', iv_client_with_bills.state) AS full_address FROM iv_client_with_bills;
+
+ALTER VIEW iv_customer
+ LAYOUT (iv_client_with_bills = [20, 20, 200, 200]);
+

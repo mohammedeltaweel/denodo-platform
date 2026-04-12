@@ -1,0 +1,15 @@
+﻿1/databases/tutorial/folder.2 - integration/2 - integration.vql
+*/databases/tutorial/folder.2 - integration/2 - integration.vql
+*/databases/tutorial/folder.1 - connectivity/1 - connectivity.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/2 - base views.vql
+*/databases/tutorial/folder.1 - connectivity/folder.1 - data sources/1 - data sources.vql
+*/databases/tutorial/folder.1 - connectivity/folder.1 - data sources/datasources/jdbc/ds_crm.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_crm_client.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_crm_address.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_crm_client_type.vql
+*/databases/tutorial/folder.2 - integration/views/iv_crm_personal_data.vql
+*/databases/tutorial/folder.1 - connectivity/folder.1 - data sources/datasources/ws/ds_billing.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_billing_bill_by_customer_array.vql
+*/databases/tutorial/folder.2 - integration/views/iv_billing_information.vql
+1/databases/tutorial/folder.2 - integration/views/iv_client_with_bills.vql
+*/databases/tutorial/folder.2 - integration/views/iv_client_with_bills.vql

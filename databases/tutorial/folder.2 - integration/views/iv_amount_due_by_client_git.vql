@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_amount_due_by_client_git FOLDER = '/2 - integration' AS SELECT name AS name, surname AS surname, client_id AS client_id, sum(cast('float', amount_due)) AS total_amount FROM iv_client_with_bills GROUP BY client_id, name, surname;
+
+ALTER VIEW iv_amount_due_by_client_git
+ LAYOUT (iv_client_with_bills = [20, 20, 200, 200]);
+

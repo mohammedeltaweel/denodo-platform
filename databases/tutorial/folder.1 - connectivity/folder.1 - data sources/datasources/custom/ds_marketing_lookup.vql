@@ -1,0 +1,27 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE CUSTOM ds_marketing_lookup
+    FOLDER = '/1 - connectivity/1 - data sources'
+    CLASSNAME='com.denodo.vdb.contrib.wrapper.xls.ExcelWrapper';
+
+CREATE OR REPLACE WRAPPER CUSTOM ds_marketing_lookup
+    FOLDER = '/1 - connectivity/1 - data sources'
+    DATASOURCENAME=ds_marketing_lookup
+    PARAMETERS (
+      'Type of file' = 'Excel 2007 or later (*.xlsx)',
+      'File location' = ROUTE HTTP 'http.ApacheHttpClientConnection,120000' GET '${databases.tutorial.folder.1 - connectivity.folder.1 - data sources.views.custom.ds_marketing_lookup.File location.ROUTE.HTTP.URL}'
+        CHECKCERTIFICATES
+     AUTHENTICATION OFF
+        PROXY OFF,
+      'Worksheet' = 'Country lookup',
+      'Extract data from all sheets' = false,
+      'Extract sheet name as a new column' = false,
+      'Start cell' = 'A1',
+      'End cell' = 'B36',
+      'Has headers' = true,
+      'Stream tuples' = true
+    )
+    OUTPUTSCHEMA (
+        marketingarea_0 = 'Marketing area' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        standardizedarea_0 = 'Standardized area' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE
+    );
+

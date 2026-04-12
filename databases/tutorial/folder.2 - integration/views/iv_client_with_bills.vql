@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW iv_client_with_bills FOLDER = '/2 - integration' AS SELECT iv_crm_personal_data.client_id AS client_id, iv_crm_personal_data.name AS name, iv_crm_personal_data.surname AS surname, iv_crm_personal_data.client_type AS client_type, iv_crm_personal_data.street AS street, iv_crm_personal_data.city AS city, iv_crm_personal_data.zip AS zip, iv_crm_personal_data.state AS state, iv_crm_personal_data.primary_phone AS primary_phone, iv_crm_personal_data.code AS code, iv_crm_personal_data.type_value AS type_value, iv_billing_information.customer_id AS customer_id, iv_billing_information.amount_due AS amount_due, iv_billing_information.billing_id AS billing_id, iv_billing_information.billing_end_date AS billing_end_date, iv_billing_information.due_date AS due_date, iv_billing_information.package_id AS package_id, iv_billing_information.balance AS balance, iv_billing_information.billing_start_date AS billing_start_date, iv_billing_information.billing_period_id AS billing_period_id, iv_billing_information.ssn AS ssn, iv_billing_information.phone_center AS phone_center, iv_billing_information.tax_id AS tax_id FROM iv_crm_personal_data AS iv_crm_personal_data INNER JOIN iv_billing_information AS iv_billing_information ON iv_crm_personal_data.client_id = iv_billing_information.customer_id ;
+
+ALTER VIEW iv_client_with_bills
+ LAYOUT (iv_crm_personal_data = [20, 20, 200, 200], iv_billing_information = [462, 121, 200, 200]);
+
+ALTER VIEW iv_client_with_bills
+ CACHE FULL
+    BATCHSIZEINCACHE DEFAULT TIMETOLIVEINCACHE NOEXPIRE;
+

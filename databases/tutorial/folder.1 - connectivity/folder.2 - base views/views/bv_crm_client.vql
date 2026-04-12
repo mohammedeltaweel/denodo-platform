@@ -1,0 +1,42 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_crm_client
+    FOLDER = '/1 - connectivity/2 - base views'
+    DATASOURCENAME=ds_crm
+    CATALOGNAME='${databases.tutorial.folder.1 - connectivity.folder.2 - base views.views.jdbc.bv_crm_client.CATALOGNAME}' 
+    RELATIONNAME='client' 
+    OUTPUTSCHEMA (
+        client_id = 'client_id' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE,
+        name = 'name' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE,
+        surname = 'surname' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE,
+        client_type = 'client_type' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='2', description='', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'client_id' )
+    CONSTRAINT 'client_type_code' FOREIGN KEY ( 'client_type' ) 
+    REFERENCES 'crm'.'client_type'( 'code' )  ON UPDATE RESTRICT  ON DELETE CASCADE NOT DEFERRABLE 
+    INDEX 'PRIMARY' OTHER UNIQUE PRIMARY ( 'client_id' )
+    INDEX 'client_type_code' OTHER ( 'client_type' );
+
+CREATE OR REPLACE TABLE bv_crm_client I18N us_pst (
+        client_id:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50', description = ''),
+        name:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = ''),
+        surname:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = ''),
+        client_type:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '2', description = '')
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    DESCRIPTION = 'bv_crm_address DC description'
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'client_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_crm_client(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD client_id (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD surname (any) OPT ANY
+             ADD client_type (any) OPT ANY
+        )
+        OUTPUTLIST (client_id, client_type, name, surname
+        )
+        WRAPPER (jdbc bv_crm_client)
+    );
+

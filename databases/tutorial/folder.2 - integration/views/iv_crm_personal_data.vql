@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_crm_personal_data FOLDER = '/2 - integration' AS SELECT bv_crm_client.client_id AS client_id, bv_crm_client.name AS name, bv_crm_client.surname AS surname, bv_crm_client.client_type AS client_type, bv_crm_address.street AS street, bv_crm_address.city AS city, bv_crm_address.zip AS zip, bv_crm_address.state AS state, bv_crm_address.primary_phone AS primary_phone, bv_crm_client_type.code AS code, bv_crm_client_type.type_value AS type_value FROM (bv_crm_client AS bv_crm_client INNER JOIN bv_crm_address AS bv_crm_address ON bv_crm_client.client_id = bv_crm_address.client_fid ) INNER JOIN bv_crm_client_type AS bv_crm_client_type ON bv_crm_client.client_type = bv_crm_client_type.code ;
+
+ALTER VIEW iv_crm_personal_data
+ LAYOUT (bv_crm_client = [132, 82, 200, 200], bv_crm_address = [521, 160, 200, 200], bv_crm_client_type = [522, 24, 200, 200]);
+

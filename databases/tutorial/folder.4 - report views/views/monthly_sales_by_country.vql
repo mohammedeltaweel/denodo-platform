@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW monthly_sales_by_country FOLDER = '/4 - report views' AS SELECT country AS country, count(*) AS totalsales, getmonth(first(fulldate)) AS month, getyear(first(fulldate)) AS year, first(area) AS area, case WHEN (promotion_description is null ) THEN false ELSE true END AS in_promotion FROM iv_sales_with_promotions GROUP BY country, case WHEN (promotion_description is null ) THEN false ELSE true END, getyear(fulldate), getmonth(fulldate);
+
+ALTER VIEW monthly_sales_by_country
+ LAYOUT (iv_sales_with_promotions = [351, 189, 200, 200]);
+

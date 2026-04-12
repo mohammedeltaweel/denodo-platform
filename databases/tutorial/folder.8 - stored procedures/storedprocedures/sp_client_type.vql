@@ -1,0 +1,31 @@
+﻿CREATE OR REPLACE VQL PROCEDURE sp_client_type
+    FOLDER = '/8 - stored procedures'
+(upper_limit IN INTEGER, lower_limit IN INTEGER, client_id OUT VARCHAR, total_amount OUT INTEGER, type_client OUT VARCHAR)
+AS (
+    CURSOR cdata IS 'SELECT name,
+       client_id,
+       surname,
+       total_amount
+	   FROM tutorial.iv_amount_due_by_client
+  	   ORDER BY COALESCE(total_amount, 0) DESC';
+    c cdata%ROWTYPE;
+    type_c VARCHAR;
+)
+BEGIN
+    OPEN cdata;
+    LOOP 
+        FETCH cdata INTO c;
+        CASE 
+                    WHEN c.total_amount >= upper_limit THEN                 type_c:='Important';
+                    WHEN c.total_amount >= lower_limit THEN                 type_c:='Medium';
+                    WHEN c.total_amount >= 1 THEN                 type_c:='Small';
+            ELSE 
+                type_c:='Unbilled';
+            END CASE;
+        RETURN ROW ( client_id, total_amount, type_client) VALUES (c.client_id, c.total_amount, type_c);
+        EXIT WHEN cdata%NOTFOUND;
+    END LOOP;
+    CLOSE cdata;
+
+END;
+

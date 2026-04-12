@@ -1,0 +1,18 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_moody
+    ROUTE HTTP 'http.ApacheHttpClientConnection,120000' GET '${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.URL}'
+    CHECKCERTIFICATES
+    GENERATE_OUTPUT_ON_EMPTY_CONTENT
+ AUTHENTICATION OAUTH20 ( 
+      TOKEN_TYPE = ACCESS_TOKEN
+      ACCESSTOKEN = '${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.ACCESSTOKEN}' ${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.ACCESSTOKEN.ENCRYPTED}
+      REQUESTSIGNINGMETHOD = ${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.REQUESTSIGNINGMETHOD}
+      AUTHENTICATION_GRANT = ${databases.tutorial.datasources.json.ds_moody.ROUTE.AUTHENTICATION.GRANT}
+      TOKENENDPOINTURL = '${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.TOKENENDPOINTURL}'
+      CLIENTIDENTIFIER = '${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.CLIENTIDENTIFIER}'
+      CLIENTSECRET = '${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.CLIENTSECRET}' ${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.CLIENTSECRET.ENCRYPTED}
+      ACCESSTOKENEXPIRESIN = ${databases.tutorial.datasources.json.ds_moody.ROUTE.HTTP.ACCESSTOKENEXPIRESIN}
+    )
+    PROXY OFF
+    CHARSET = 'UTF-8';
+

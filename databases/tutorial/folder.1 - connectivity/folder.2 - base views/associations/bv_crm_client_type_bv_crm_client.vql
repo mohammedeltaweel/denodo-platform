@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION bv_crm_client_type_bv_crm_client REFERENTIAL CONSTRAINT 
+FOLDER = '/1 - connectivity/2 - base views'
+    ENDPOINT bv_crm_client bv_crm_client_type PRINCIPAL (0,1)
+    ENDPOINT bv_crm_client_type bv_crm_client (0,*)
+    ADD MAPPING code=client_type;
+
