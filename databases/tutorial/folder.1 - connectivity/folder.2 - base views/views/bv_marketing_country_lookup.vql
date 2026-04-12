@@ -1,0 +1,18 @@
+﻿CREATE OR REPLACE TABLE bv_marketing_country_lookup I18N us_pst (
+        marketingarea_0:text (sourcetypeid = '12'),
+        standardizedarea_0:text (sourcetypeid = '12')
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_marketing_lookup(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD marketingarea_0 (any) OPT ANY
+             ADD standardizedarea_0 (any) OPT ANY
+        )
+        OUTPUTLIST (marketingarea_0, standardizedarea_0
+        )
+        WRAPPER (custom ds_marketing_lookup)
+    );
+

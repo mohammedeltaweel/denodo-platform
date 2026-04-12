@@ -1,0 +1,44 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE customerservice
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 1000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = us_pst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    AUTHENTICATION (BASIC VDP )
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getCOSTUMERByID' (
+        TYPE SELECT
+        SCHEMA VIEW customer
+        VQL = 'SELECT customer_id, full_name, customer_type, full_address, phone, billing_due_date, balance FROM customer ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''us_pst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'getCOSTUMERByID' (
+            'CUSTOMER_ID' customer_id:'text' '=' 
+        )
+        OUTPUT 
+            'CUSTOMERReturn': Array of ( 'CUSTOMERReturnRow': Register of (
+                customer_id : 'text',
+                full_name : 'text',
+                customer_type : 'text',
+                full_address : 'text',
+                phone : 'text',
+                billing_due_date : 'localdate',
+                balance : 'decimal'
+            ) (
+                    '/balance'='BALANCE',
+                    '/billing_due_date'='BILLING_DUE_DATE',
+                    '/customer_id'='CUSTOMER_ID',
+                    '/customer_type'='CUSTOMER_TYPE',
+                    '/full_address'='FULL_ADDRESS',
+                    '/full_name'='FULL_NAME',
+                    '/phone'='PHONE'))
+    )
+    FOLDER = '/5 - data services';
+

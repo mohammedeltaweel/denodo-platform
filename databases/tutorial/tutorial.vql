@@ -1,0 +1,13 @@
+﻿CREATE OR REPLACE DATABASE tutorial 'Database for Denodo Community Tutorials';
+
+ALTER DATABASE tutorial
+  CHARSET DEFAULT;
+
+ALTER DATABASE tutorial
+  CACHE ON (
+    MAINTENANCE OFF
+    MAINTAINERPERIOD 21600
+    TIMETOLIVE 0
+    DATASOURCE DEFAULT
+  );
+

@@ -1,0 +1,9 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE WS ds_billing
+    FOLDER = '/1 - connectivity/1 - data sources'
+    WSDLURI = '${databases.tutorial.folder.1 - connectivity.folder.1 - data sources.datasources.ws.ds_billing.WSDLURI}'
+    MAXCONNECTIONS 50
+    CONNECTIONPOOLTIMEOUT 0
+    AUTHENTICATION OFF
+    PROXY OFF;
+

@@ -1,0 +1,44 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_sales_sales
+    FOLDER = '/1 - connectivity/2 - base views'
+    DATASOURCENAME=ds_sales
+    CATALOGNAME='${databases.tutorial.folder.1 - connectivity.folder.2 - base views.views.jdbc.bv_sales_sales.CATALOGNAME}' 
+    RELATIONNAME='sales' 
+    OUTPUTSCHEMA (
+        id = 'id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  NOT NULL SORTABLE,
+        dateid = 'dateid' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        product = 'product' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        ordermethod = 'ordermethod' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        area = 'area' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE,
+        promotion = 'promotion' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'id' )
+    INDEX 'PRIMARY' OTHER UNIQUE PRIMARY ( 'id' );
+
+CREATE OR REPLACE TABLE bv_sales_sales I18N us_ast (
+        id:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        dateid:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        product:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        ordermethod:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        area:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        promotion:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = '')
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sales_sales(
+        I18N us_ast
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD dateid (any) OPT ANY
+             ADD product (any) OPT ANY
+             ADD ordermethod (any) OPT ANY
+             ADD area (any) OPT ANY
+             ADD promotion (any) OPT ANY
+        )
+        OUTPUTLIST (area, dateid, id, ordermethod, product, promotion
+        )
+        WRAPPER (jdbc bv_sales_sales)
+    );
+

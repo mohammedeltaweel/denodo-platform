@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_marketing_promotions_normalized FOLDER = '/2 - integration' AS SELECT bv_marketing_promotions.promotionid_0 AS promotionid_0, bv_marketing_promotions.description AS description, bv_marketing_promotions.startdate_0 AS startdate_0, bv_marketing_promotions.enddate_0 AS enddate_0, bv_marketing_promotions.product AS product, bv_marketing_promotions.type AS type, bv_marketing_promotions.discount AS discount, bv_marketing_promotions.channel AS channel, bv_marketing_country_lookup.standardizedarea_0 AS standardizedarea_0 FROM bv_marketing_promotions AS bv_marketing_promotions INNER JOIN bv_marketing_country_lookup AS bv_marketing_country_lookup ON bv_marketing_promotions.area = bv_marketing_country_lookup.marketingarea_0 ;
+
+ALTER VIEW iv_marketing_promotions_normalized
+ LAYOUT (bv_marketing_promotions = [260, 107, 200, 200], bv_marketing_country_lookup = [648, 146, 200, 200]);
+

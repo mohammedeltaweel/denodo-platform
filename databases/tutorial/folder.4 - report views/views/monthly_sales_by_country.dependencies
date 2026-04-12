@@ -1,0 +1,19 @@
+﻿1/databases/tutorial/folder.4 - report views/4 - report views.vql
+*/databases/tutorial/folder.2 - integration/2 - integration.vql
+*/databases/tutorial/folder.1 - connectivity/1 - connectivity.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/2 - base views.vql
+*/databases/tutorial/folder.1 - connectivity/folder.1 - data sources/1 - data sources.vql
+*/databases/tutorial/folder.1 - connectivity/folder.1 - data sources/datasources/jdbc/ds_sales.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_salesdb_sales.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_salesdb_areas.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_salesdb_ordermethods.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_salesdb_dates.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_salesdb_products.vql
+*/databases/tutorial/folder.2 - integration/views/iv_sales.vql
+*/databases/tutorial/folder.1 - connectivity/folder.1 - data sources/datasources/custom/ds_marketing.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_marketing_promotions.vql
+*/databases/tutorial/folder.1 - connectivity/folder.1 - data sources/datasources/custom/ds_marketing_lookup.vql
+*/databases/tutorial/folder.1 - connectivity/folder.2 - base views/views/bv_marketing_country_lookup.vql
+*/databases/tutorial/folder.2 - integration/views/iv_marketing_promotions_normalized.vql
+1/databases/tutorial/folder.2 - integration/views/iv_sales_with_promotions.vql
+*/databases/tutorial/folder.2 - integration/views/iv_sales_with_promotions.vql

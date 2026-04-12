@@ -1,0 +1,45 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_crm_address
+    FOLDER = '/1 - connectivity/2 - base views'
+    DATASOURCENAME=ds_crm
+    CATALOGNAME='${databases.tutorial.folder.1 - connectivity.folder.2 - base views.views.jdbc.bv_crm_address.CATALOGNAME}' 
+    RELATIONNAME='address' 
+    OUTPUTSCHEMA (
+        client_fid = 'client_fid' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE,
+        street = 'street' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        city = 'city' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        zip = 'zip' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        state = 'state' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        primary_phone = 'primary_phone' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE
+    )
+    CONSTRAINT 'client_address' FOREIGN KEY ( 'client_fid' ) 
+    REFERENCES 'crm'.'client'( 'client_id' )  ON UPDATE RESTRICT  ON DELETE CASCADE NOT DEFERRABLE 
+    INDEX 'client_address' OTHER ( 'client_fid' );
+
+CREATE OR REPLACE TABLE bv_crm_address I18N us_pst (
+        client_fid:text (notnull, sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50', description = ''),
+        street:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = ''),
+        city:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = ''),
+        zip:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = ''),
+        state:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = ''),
+        primary_phone:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = '')
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    DESCRIPTION = 'NEW DESCRIPTION'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_crm_address(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD client_fid (any) OPT ANY
+             ADD street (any) OPT ANY
+             ADD city (any) OPT ANY
+             ADD zip (any) OPT ANY
+             ADD state (any) OPT ANY
+             ADD primary_phone (any) OPT ANY
+        )
+        OUTPUTLIST (city, client_fid, primary_phone, state, street, zip
+        )
+        WRAPPER (jdbc bv_crm_address)
+    );
+

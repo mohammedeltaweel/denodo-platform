@@ -1,0 +1,10 @@
+﻿CREATE OR REPLACE VIEW iv_sales_with_promotions FOLDER = '/2 - integration' AS SELECT iv_sales.id AS id, iv_sales.country AS country, iv_sales.area AS area, iv_sales.area_description AS area_description, iv_sales.fulldate AS fulldate, iv_sales.order_method AS order_method, iv_sales.product_name AS product_name, iv_sales.length AS length, iv_sales.width AS width, iv_sales.height AS height, iv_sales.weight AS weight, iv_marketing_promotions_normalized.description AS promotion_description, iv_marketing_promotions_normalized.startdate_0 AS startdate_0, iv_marketing_promotions_normalized.enddate_0 AS enddate_0, iv_marketing_promotions_normalized.product AS product, iv_marketing_promotions_normalized.type AS type, iv_marketing_promotions_normalized.discount AS discount, iv_marketing_promotions_normalized.channel AS channel, iv_marketing_promotions_normalized.standardizedarea_0 AS standardizedarea_0 FROM iv_sales AS iv_sales LEFT OUTER JOIN iv_marketing_promotions_normalized AS iv_marketing_promotions_normalized ON iv_sales.promotion = iv_marketing_promotions_normalized.promotionid_0 ;
+
+ALTER VIEW iv_sales_with_promotions
+ LAYOUT (iv_sales = [329, 52, 200, 200], iv_marketing_promotions_normalized = [715, 49, 200, 200]);
+
+ALTER VIEW iv_sales_with_promotions
+ CACHE FULL
+    BATCHSIZEINCACHE DEFAULT TIMETOLIVEINCACHE NOEXPIRE
+    ONSCHEMACHANGE RECREATE INCREMENTAL_LOAD;
+

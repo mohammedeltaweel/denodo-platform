@@ -1,0 +1,11 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_rest_denodo_element_search
+    ROUTE HTTP 'http.ApacheHttpClientConnection,120000' GET '${databases.tutorial.datasources.json.ds_rest_denodo_element_search.ROUTE.HTTP.URL}'
+    CHECKCERTIFICATES
+    GENERATE_OUTPUT_ON_EMPTY_CONTENT
+ AUTHENTICATION BASIC ( 
+      USER '${databases.tutorial.datasources.json.ds_rest_denodo_element_search.ROUTE.HTTP.USER}'
+      PASSWORD '${databases.tutorial.datasources.json.ds_rest_denodo_element_search.ROUTE.HTTP.PASSWORD}' ${databases.tutorial.datasources.json.ds_rest_denodo_element_search.ROUTE.HTTP.PASSWORD.ENCRYPTED} )
+    PROXY OFF
+    CHARSET = 'UTF-8';
+

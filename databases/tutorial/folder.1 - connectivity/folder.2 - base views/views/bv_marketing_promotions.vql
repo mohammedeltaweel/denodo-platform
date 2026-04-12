@@ -1,0 +1,32 @@
+﻿CREATE OR REPLACE TABLE bv_marketing_promotions I18N us_pst (
+        promotionid_0:int (sourcetypeid = '4'),
+        description:text (sourcetypeid = '12'),
+        startdate_0:text (sourcetypeid = '12'),
+        enddate_0:text (sourcetypeid = '12'),
+        product:int (sourcetypeid = '4'),
+        area:text (sourcetypeid = '12'),
+        type:text (sourcetypeid = '12'),
+        discount:decimal (sourcetypeid = '3'),
+        channel:text (sourcetypeid = '12')
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_marketing(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD promotionid_0 (any) OPT ANY
+             ADD description (any) OPT ANY
+             ADD startdate_0 (any) OPT ANY
+             ADD enddate_0 (any) OPT ANY
+             ADD product (any) OPT ANY
+             ADD area (any) OPT ANY
+             ADD type (any) OPT ANY
+             ADD discount (any) OPT ANY
+             ADD channel (any) OPT ANY
+        )
+        OUTPUTLIST (area, channel, description, discount, enddate_0, product, promotionid_0, startdate_0, type
+        )
+        WRAPPER (custom ds_marketing)
+    );
+

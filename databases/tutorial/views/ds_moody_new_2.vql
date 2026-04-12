@@ -1,0 +1,40 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JSON ds_moody_new_2
+    DATASOURCENAME=ds_moody
+    TUPLEROOT '/JSONFile/data/data'
+    ROUTE HTTP 'http.ApacheHttpClientConnection,120000' GET '${databases.tutorial.views.json.ds_moody_new_2.ROUTE.HTTP.URL}'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        freq = 'JSONFile.data.freq' : 'java.lang.String',
+        startdate = 'JSONFile.data.startDate' : 'java.lang.String',
+        freqcode = 'JSONFile.data.freqCode' : 'java.lang.Integer',
+        start = 'JSONFile.data.start' : 'java.lang.Integer',
+        periods = 'JSONFile.data.periods' : 'java.lang.Integer',
+        field_0 = 'JSONFile.data.data.field_0' : 'java.lang.Double'
+    )
+    );
+
+CREATE OR REPLACE TABLE ds_moody_new_2 I18N us_ast (
+        freq:text,
+        startdate:text,
+        freqcode:int,
+        start:int,
+        periods:int,
+        field_0:double
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_moody_new_2(
+        I18N us_ast
+        CONSTRAINTS (
+             ADD freq NOS ZERO ()
+             ADD startdate NOS ZERO ()
+             ADD freqcode NOS ZERO ()
+             ADD start NOS ZERO ()
+             ADD periods NOS ZERO ()
+             ADD field_0 NOS ZERO ()
+        )
+        OUTPUTLIST (field_0, freq, freqcode, periods, start, startdate
+        )
+        WRAPPER (json ds_moody_new_2)
+    );
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_billing_information FOLDER = '/2 - integration' AS SELECT customer_id AS customer_id, amount_due AS amount_due, billing_id AS billing_id, return_customer_id AS return_customer_id, billing_end_date AS billing_end_date, due_date AS due_date, package_id AS package_id, balance AS balance, billing_start_date AS billing_start_date, billing_period_id AS billing_period_id, ssn AS ssn, phone_center AS phone_center, tax_id AS tax_id FROM FLATTEN bv_billing_bill_by_customer_array AS v ( v.return);
+
+ALTER VIEW iv_billing_information
+ LAYOUT (bv_billing_bill_by_customer_array = [238, 158, 200, 200]);
+

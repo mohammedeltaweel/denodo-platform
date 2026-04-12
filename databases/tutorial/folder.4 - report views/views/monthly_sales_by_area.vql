@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW monthly_sales_by_area FOLDER = '/4 - report views' AS SELECT in_promotion AS in_promotion, area AS area, year AS year, month AS month, sum(totalsales) AS totalsales FROM monthly_sales_by_country GROUP BY in_promotion, area, year, month;
+
+ALTER VIEW monthly_sales_by_area
+ LAYOUT (monthly_sales_by_country = [351, 245, 200, 200]);
+
